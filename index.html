@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Files</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f11;
+    --surface: #17171a;
+    --surface2: #1e1e23;
+    --border: #2a2a32;
+    --accent: #e8c547;
+    --accent2: #4fc3f7;
+    --text: #e8e8ec;
+    --text-muted: #7a7a88;
+    --danger: #f87171;
+    --success: #4ade80;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .logo span {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .header-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  /* Navigation tabs */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    padding: 0 2rem;
+    overflow-x: auto;
+  }
+
+  .tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Main layout */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* Page title */
+  .page-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .page-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* Recording cards */
+  .recording-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .recording-card:hover { border-color: #3a3a45; }
+
+  .recording-header {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .recording-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .recording-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-audio { background: rgba(232,197,71,0.1); color: var(--accent); border: 1px solid rgba(232,197,71,0.2); }
+  .badge-image { background: rgba(79,195,247,0.1); color: var(--accent2); border: 1px solid rgba(79,195,247,0.2); }
+
+  /* Audio player area */
+  .audio-area {
+    padding: 1.5rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .audio-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  audio {
+    width: 100%;
+    height: 36px;
+    filter: invert(1) hue-rotate(160deg) brightness(0.85);
+    border-radius: 3px;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(232,197,71,0.3);
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  .download-btn:hover {
+    background: rgba(232,197,71,0.08);
+    border-color: rgba(232,197,71,0.6);
+  }
+
+  /* Transcript toggle */
+  .transcript-toggle {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .transcript-toggle:hover { background: var(--surface2); }
+
+  .transcript-toggle-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .chevron {
+    transition: transform 0.2s;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* Transcript content */
+  .transcript-body {
+    display: none;
+    padding: 1.5rem;
+    background: #0c0c0e;
+    border-top: 1px solid var(--border);
+  }
+  .transcript-body.open { display: block; }
+
+  .transcript-scroll {
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+
+  .transcript-scroll::-webkit-scrollbar { width: 4px; }
+  .transcript-scroll::-webkit-scrollbar-track { background: var(--surface); }
+  .transcript-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .dialogue-line {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #1a1a20;
+    font-size: 0.875rem;
+  }
+  .dialogue-line:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .speaker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-top: 0.15rem;
+    color: var(--text-muted);
+  }
+
+  .speaker.eoin { color: var(--accent); }
+  .speaker.lewis { color: var(--accent2); }
+
+  .speech { color: #c8c8d4; line-height: 1.7; }
+
+  .highlight {
+    background: rgba(232,197,71,0.12);
+    border-left: 2px solid var(--accent);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0 2px 2px 0;
+    color: var(--text);
+  }
+
+  /* Images section */
+  .images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .image-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .image-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-2px);
+  }
+
+  .image-thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    background: var(--surface2);
+  }
+
+  .image-card-footer {
+    padding: 0.75rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-top: 1.5rem;
+  }
+  .upload-zone:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .empty-state .icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 3px; }
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+    font-family: monospace;
+  }
+  .lightbox-close:hover { color: var(--text); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    main { padding: 1rem; }
+    .dialogue-line { grid-template-columns: 60px 1fr; }
+    .recording-header { flex-direction: column; align-items: flex-start; }
+    nav { padding: 0 1rem; }
+    header { padding: 0 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Case<span>Files</span></div>
+  <div class="header-meta">Confidential &nbsp;·&nbsp; Restricted Access</div>
+</header>
+
+<nav>
+  <button class="tab active" onclick="showSection('calls', this)">📞 &nbsp;Call Recordings</button>
+  <button class="tab" onclick="showSection('images', this)">🖼 &nbsp;Images</button>
+</nav>
+
+<main>
+
+  <!-- CALLS SECTION -->
+  <div id="section-calls" class="section active">
+    <div class="page-title">Call Recordings &amp; Transcripts</div>
+
+    <!-- Recording: Eoin April 16th -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — Phone Call</div>
+          <div class="recording-meta">
+            <span>April 16th</span>
+            <span>Participants: Eoin, Lewis</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.5rem;">
+          <span class="badge badge-audio">▶ Audio</span>
+          <span class="badge badge-audio" style="background:rgba(79,195,247,0.1);color:var(--accent2);border-color:rgba(79,195,247,0.2);">📄 Transcript</span>
+        </div>
+      </div>
+
+      <div class="audio-area">
+        <div class="audio-label">▶ Play Recording</div>
+        <audio controls preload="metadata">
+          <source src="audio/EoinCallApril16th.m4a" type="audio/mp4">
+          Your browser does not support the audio element.
+        </audio>
+        <br>
+        <a class="download-btn" href="audio/EoinCallApril16th.m4a" download>
+          ↓ Download Audio File
+        </a>
+      </div>
+
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">
+          📄 &nbsp;Read Transcript
+        </span>
+        <span class="chevron">▼</span>
+      </div>
+
+      <div class="transcript-body">
+        <div class="transcript-scroll">
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Heya.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Hey, sorry about that. I was booking through ASAP Tickets and they're good. They can get you cheaper tickets but man, it takes a long time. But anyway, so sorry about that.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Oh, no worries. So, you looking, you had something to say?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Oh, I missed that, say that again?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Sorry, I was just saying, what's up?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Oh, yeah, yeah, I'm actually coming back on Tuesday, so like a week, actually a week from now I'll be there. But what happened was, I got a call, I wanted to update you on everything, from the next door neighbour and apparently they've all moved out. And so my house up in Laurel Ridge is vacant. <span class="highlight">So what I'm going to do is I'm going to come back and I'm going to move in there and I'm going to basically start fixing it up and doing whatever I need to do.</span> And, you know, the issue, like, I think, you know, that was, it sounded like a good solution that maybe we could just transfer to that house. And when I thought about it, I thought it's just risky. Because what if they did say yes when I had to offer it back to them? So what I'm thinking is, let's just stick to our August 15th. And if you find something sooner, fantastic. If you don't, you know, August 15th is fine. And we can talk about the possibility, <span class="highlight">if you guys are still stuck for a place, of doing a lease, like, for a few months where I'll help you for, like, a few months.</span></div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Yeah. When would you have to offer it to them?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Well, it would have to be in August. And I think I know what you're thinking, because this occurred to me too. I thought, well, what if they said no, and then you could go from High Street up there, but I'm going to do a proper lease up there. <span class="highlight">The only way that it's going to work for me without selling it, is basically if I rent it at market value.</span> And I'll be able to do that, because how it works is, <span class="highlight">when you get new windows and you do insulation and all that kind of stuff, you bring the BER up. And when you bring the BER up, it breaks the rent pressure zone. So it means that the RTB says, okay, well, what was your BER before? And then you say it was this, and then you bring it up seven steps. And then that breaks the rent pressure zone.</span></div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Oh, okay, okay, I get you now.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Yeah, because, I mean, we could do that. I'd be okay with doing that, but it would just be the same thing. And then you'd have to make a move, you'd have to move twice, unless you could afford the proper rent, which I understand that you can't, and I agree. It's just, you know, it's just for me, you know, I've said it numerous times, like, if I have to borrow money to get new windows and I have to do all those upgrades, you know, I'm going to be in more debt, and it's going to take me a while to pay all that off. So I have to rent it for the proper price, because, you know, mortgage and taxes, that's just unfortunately the way it is. So what I'm saying to you guys is, look, I don't want you to panic, let's say you search for a place now, and you search for a place, anything that comes up, and if something comes up sooner, like, take it, because as soon as you find the right place, grab it, but, like, let's say we get around to August, like August 1st or something, and you still haven't found a place, then we could do a lease that could give you an extra few months.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Yeah. Okay.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Because, you know, I may not sell that house until the mortgage is paid off, because when I did the numbers and talked to an accountant, you know, they don't care that I owe money on the house, they're just going to take a third in capital gains tax, and the money that I owe the bank will come out of my two-thirds, not their third. So it's actually, selling a house is bad news unless you own it outright. So what I could do for you guys is what we had talked about before, is doing a lease, and then, you know, but like, you know, it means you guys are going to have to move anyway at some point, but it'll buy you a little extra time if you need it. So, yeah, what are your thoughts?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Yeah, I guess we got no choice in that matter. So then, yeah, if you're coming next week, if you're coming around this place at all, or if you just want to come have a look at the house, just let us know because we work different schedules now. She starts early and I finish really late now. And so, just let us know.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech"><span class="highlight">Well, what I'll do is I'll stay with my brother first,</span> and then I might even buy a car because I'm actually, you know, my mother, I can only get insured in her car for a limited time, and I can't take her car the whole time. So if I can get an old used car. <span class="highlight">So I'm essentially kind of moving back to the country for a bit.</span> So, yeah. Like, I'll give you a call and there's no, you know, there's no time. <span class="highlight">Like, I don't need to get in there immediately. I'll just get some stuff out of the attic is all.</span> And we can talk face to face then. And while I'm there, anything that I hear of, of course, like, I'll give you guys any leads.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Yeah. Okay. Cool.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Yeah. But I'm sorry. That other solution seemed perfect. And then I was just like, after I talked to the neighbor and then I gave it some thought and I thought, holy shit, like, that's dodgy as fuck. So I apologize. You know, it was a good idea in the moment. But, yeah. So just wanted to give you an update as they come in. And, but I'm definitely coming next week. <span class="highlight">I'll text you from my brother's place and then we'll work out a time when I can come by just to say hi.</span> And then maybe, you know, I can get the stuff out of the attic and then I'll move it up to the other house and then, you know, we can keep in touch.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Okay. Yeah. No worries.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Yeah. Is everything going with you? Go well with you otherwise?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">It's just struggling to find places. It's just constantly applying for applications, constantly looking at houses, constantly getting turned down.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Oh, Jesus. I'm so sorry about that. That is fucked up. I know. Well, you know what? Let's send you the reference. I did a reference for you guys and I scanned it. But you know what? You know what would be great? If you don't mind first respond to that email about August 15th. So we have that agreement.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Oh, yeah, yeah, yeah.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Yeah. Just, if you guys respond to that and then I'll send you. I'll scan the, I'll print out the thing that I wrote. And then I'll send it to you. But yeah, if you guys don't mind responding to that so that we know we're all on the same page about that August 15th.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Okay, perfect. Okay.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Great. And then I'll send you the reference and you'll have it. And then I'll be, you know, it'll be easier when I'm in Cork that people can just contact me if they have any questions, you know?</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Okay.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">All right. Awesome. So yeah, I'll wait for your email. Then I'll scan that and I'll send it to you.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker lewis">Lewis</div>
+            <div class="speech">Okay, perfect. Thank you so much.</div>
+          </div>
+
+          <div class="dialogue-line">
+            <div class="speaker eoin">Eoin</div>
+            <div class="speech">Thanks. All right, Lewis. Thanks.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder for additional recordings -->
+    <div style="border: 1px dashed var(--border); border-radius: 4px; padding: 2rem; text-align: center; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;">
+      + Additional recordings can be added here
+    </div>
+
+  </div>
+
+  <!-- IMAGES SECTION -->
+  <div id="section-images" class="section">
+    <div class="page-title">Evidence Images</div>
+
+    <div id="images-grid" class="images-grid">
+      <!-- Images will be listed here once added to the /images folder -->
+    </div>
+
+    <div class="empty-state" id="images-empty">
+      <div class="icon">🖼</div>
+      <div>No images added yet.</div>
+      <div style="margin-top:0.5rem;font-size:0.7rem;opacity:0.6;">Place image files in the <code>images/</code> folder and update the list in the HTML.</div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">✕</div>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function showSection(name, tabEl) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('section-' + name).classList.add('active');
+    tabEl.classList.add('active');
+  }
+
+  function toggleTranscript(toggleEl) {
+    const body = toggleEl.nextElementSibling;
+    const chevron = toggleEl.querySelector('.chevron');
+    body.classList.toggle('open');
+    chevron.classList.toggle('open');
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox(e) {
+    if (e.target === document.getElementById('lightbox')) {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+  }
+
+  // ── IMAGE MANIFEST ──────────────────────────────────────────────────────
+  // To add images: place files in the images/ folder and add entries below.
+  // Format: { src: "images/filename.jpg", label: "Description" }
+  const imageManifest = [
+    // Example (uncomment and edit):
+    // { src: "images/example.jpg", label: "Example image" },
+  ];
+
+  function renderImages() {
+    const grid = document.getElementById('images-grid');
+    const empty = document.getElementById('images-empty');
+    if (imageManifest.length === 0) {
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    imageManifest.forEach(img => {
+      const card = document.createElement('div');
+      card.className = 'image-card';
+      card.onclick = () => openLightbox(img.src);
+      card.innerHTML = `
+        <img class="image-thumb" src="${img.src}" alt="${img.label}" loading="lazy">
+        <div class="image-card-footer">
+          <span>${img.label}</span>
+          <a href="${img.src}" download onclick="event.stopPropagation()" style="color:var(--accent2);text-decoration:none;font-size:0.75rem;">↓</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  renderImages();
+</script>
+</body>
+</html>
