@@ -13,402 +13,75 @@
     --border: #2a2a32;
     --accent: #e8c547;
     --accent2: #4fc3f7;
+    --accent3: #f87171;
     --text: #e8e8ec;
     --text-muted: #7a7a88;
-    --danger: #f87171;
-    --success: #4ade80;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'IBM Plex Sans', sans-serif;
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  /* Header */
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    background: var(--surface);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-
-  .logo {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .logo span {
-    color: var(--text-muted);
-    font-weight: 400;
-  }
-
-  .header-meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-align: right;
-  }
-
-  /* Navigation tabs */
-  nav {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 0;
-    padding: 0 2rem;
-    overflow-x: auto;
-  }
-
-  .tab {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.85rem 1.5rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; min-height: 100vh; line-height: 1.6; }
+  header { border-bottom: 1px solid var(--border); padding: 0 2rem; background: var(--surface); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .logo span { color: var(--text-muted); font-weight: 400; }
+  .header-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
+  nav { background: var(--surface); border-bottom: 1px solid var(--border); display: flex; padding: 0 2rem; overflow-x: auto; }
+  .tab { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 1.5rem; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; border-top: none; border-left: none; border-right: none; transition: all 0.2s; white-space: nowrap; background: none; }
   .tab:hover { color: var(--text); }
   .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-  /* Main layout */
   main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
-
   .section { display: none; }
   .section.active { display: block; }
-
-  /* Page title */
-  .page-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .page-title::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  /* Recording cards */
-  .recording-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
+  .page-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+  .page-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .recording-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 1.5rem; overflow: hidden; transition: border-color 0.2s; }
   .recording-card:hover { border-color: #3a3a45; }
-
-  .recording-header {
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-
-  .recording-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-
-  .recording-meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
+  .recording-header { padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .recording-title { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .recording-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.3rem; }
+  .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.2rem 0.6rem; border-radius: 3px; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
   .badge-audio { background: rgba(232,197,71,0.1); color: var(--accent); border: 1px solid rgba(232,197,71,0.2); }
-  .badge-image { background: rgba(79,195,247,0.1); color: var(--accent2); border: 1px solid rgba(79,195,247,0.2); }
-
-  /* Audio player area */
-  .audio-area {
-    padding: 1.5rem;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .audio-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.75rem;
-  }
-
-  audio {
-    width: 100%;
-    height: 36px;
-    filter: invert(1) hue-rotate(160deg) brightness(0.85);
-    border-radius: 3px;
-  }
-
-  .download-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.75rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--accent);
-    text-decoration: none;
-    padding: 0.4rem 0.8rem;
-    border: 1px solid rgba(232,197,71,0.3);
-    border-radius: 3px;
-    transition: all 0.2s;
-  }
-
-  .download-btn:hover {
-    background: rgba(232,197,71,0.08);
-    border-color: rgba(232,197,71,0.6);
-  }
-
-  /* Transcript toggle */
-  .transcript-toggle {
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s;
-  }
-
+  .badge-transcript { background: rgba(79,195,247,0.1); color: var(--accent2); border: 1px solid rgba(79,195,247,0.2); }
+  .badge-visit { background: rgba(248,113,113,0.1); color: var(--accent3); border: 1px solid rgba(248,113,113,0.2); }
+  .audio-area { padding: 1.5rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .audio-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  audio { width: 100%; height: 36px; filter: invert(1) hue-rotate(160deg) brightness(0.85); border-radius: 3px; }
+  .download-btn { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--accent); text-decoration: none; padding: 0.4rem 0.8rem; border: 1px solid rgba(232,197,71,0.3); border-radius: 3px; transition: all 0.2s; }
+  .download-btn:hover { background: rgba(232,197,71,0.08); border-color: rgba(232,197,71,0.6); }
+  .transcript-toggle { padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; transition: background 0.15s; }
   .transcript-toggle:hover { background: var(--surface2); }
-
-  .transcript-toggle-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent2);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .chevron {
-    transition: transform 0.2s;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-  }
+  .transcript-toggle-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); display: flex; align-items: center; gap: 0.5rem; }
+  .chevron { transition: transform 0.2s; color: var(--text-muted); font-size: 0.75rem; }
   .chevron.open { transform: rotate(180deg); }
-
-  /* Transcript content */
-  .transcript-body {
-    display: none;
-    padding: 1.5rem;
-    background: #0c0c0e;
-    border-top: 1px solid var(--border);
-  }
+  .transcript-body { display: none; padding: 1.5rem; background: #0c0c0e; border-top: 1px solid var(--border); }
   .transcript-body.open { display: block; }
-
-  .transcript-scroll {
-    max-height: 450px;
-    overflow-y: auto;
-    padding-right: 0.5rem;
-  }
-
+  .transcript-scroll { max-height: 500px; overflow-y: auto; padding-right: 0.5rem; }
   .transcript-scroll::-webkit-scrollbar { width: 4px; }
   .transcript-scroll::-webkit-scrollbar-track { background: var(--surface); }
   .transcript-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-  .dialogue-line {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 1rem;
-    margin-bottom: 1.2rem;
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid #1a1a20;
-    font-size: 0.875rem;
-  }
+  .dialogue-line { display: grid; grid-template-columns: 85px 1fr; gap: 1rem; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid #1a1a20; font-size: 0.875rem; }
   .dialogue-line:last-child { border-bottom: none; margin-bottom: 0; }
-
-  .speaker {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding-top: 0.15rem;
-    color: var(--text-muted);
-  }
-
+  .speaker { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding-top: 0.15rem; color: var(--text-muted); }
   .speaker.eoin { color: var(--accent); }
   .speaker.lewis { color: var(--accent2); }
-
+  .speaker.barbara { color: #c084fc; }
   .speech { color: #c8c8d4; line-height: 1.7; }
-
-  .highlight {
-    background: rgba(232,197,71,0.12);
-    border-left: 2px solid var(--accent);
-    padding: 0.2rem 0.5rem;
-    border-radius: 0 2px 2px 0;
-    color: var(--text);
-  }
-
-  /* Images section */
-  .images-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
-  }
-
-  .image-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s, transform 0.15s;
-  }
-
-  .image-card:hover {
-    border-color: var(--accent2);
-    transform: translateY(-2px);
-  }
-
-  .image-thumb {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    background: var(--surface2);
-  }
-
-  .image-card-footer {
-    padding: 0.75rem 1rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  /* Upload zone */
-  .upload-zone {
-    border: 2px dashed var(--border);
-    border-radius: 4px;
-    padding: 3rem 2rem;
-    text-align: center;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-    margin-top: 1.5rem;
-  }
-  .upload-zone:hover { border-color: var(--accent2); color: var(--accent2); }
-
-  .empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--text-muted);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-  }
-
+  .highlight { background: rgba(232,197,71,0.12); border-left: 2px solid var(--accent); padding: 0.2rem 0.5rem; border-radius: 0 2px 2px 0; color: var(--text); }
+  .images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .image-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+  .image-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+  .image-thumb { width: 100%; height: 180px; object-fit: cover; display: block; background: var(--surface2); }
+  .image-card-footer { padding: 0.75rem 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; }
   .empty-state .icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
-
-  /* Lightbox */
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; }
   .lightbox.open { display: flex; }
   .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 3px; }
-  .lightbox-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 1.5rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    transition: color 0.2s;
-    font-family: monospace;
-  }
+  .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: var(--surface); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: color 0.2s; font-family: monospace; }
   .lightbox-close:hover { color: var(--text); }
-
-  /* Responsive */
   @media (max-width: 600px) {
     main { padding: 1rem; }
-    .dialogue-line { grid-template-columns: 60px 1fr; }
+    .dialogue-line { grid-template-columns: 65px 1fr; }
     .recording-header { flex-direction: column; align-items: flex-start; }
-    nav { padding: 0 1rem; }
-    header { padding: 0 1rem; }
+    nav, header { padding: 0 1rem; }
   }
 </style>
 </head>
@@ -420,224 +93,323 @@
 </header>
 
 <nav>
-  <button class="tab active" onclick="showSection('calls', this)">📞 &nbsp;Call Recordings</button>
-  <button class="tab" onclick="showSection('images', this)">🖼 &nbsp;Images</button>
+  <button class="tab active" onclick="showSection('calls',this)">📞 &nbsp;Call Recordings</button>
+  <button class="tab" onclick="showSection('images',this)">🖼 &nbsp;Images</button>
 </nav>
 
 <main>
-
-  <!-- CALLS SECTION -->
   <div id="section-calls" class="section active">
-    <div class="page-title">Call Recordings &amp; Transcripts</div>
+    <div class="page-title">Call Recordings &amp; Transcripts — 7 entries</div>
 
-    <!-- Recording: Eoin April 16th -->
+    <!-- ── APRIL 8TH ── -->
     <div class="recording-card">
       <div class="recording-header">
         <div>
           <div class="recording-title">Eoin — Phone Call</div>
-          <div class="recording-meta">
-            <span>April 16th</span>
-            <span>Participants: Eoin, Lewis</span>
-          </div>
+          <div class="recording-meta"><span>April 8th</span><span>Eoin · Lewis · Barbara</span></div>
         </div>
-        <div style="display:flex;gap:0.5rem;">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
           <span class="badge badge-audio">▶ Audio</span>
-          <span class="badge badge-audio" style="background:rgba(79,195,247,0.1);color:var(--accent2);border-color:rgba(79,195,247,0.2);">📄 Transcript</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
         </div>
       </div>
-
       <div class="audio-area">
         <div class="audio-label">▶ Play Recording</div>
-        <audio controls preload="metadata">
-          <source src="audio/EoinCallApril16th.m4a" type="audio/mp4">
-          Your browser does not support the audio element.
-        </audio>
-        <br>
-        <a class="download-btn" href="audio/EoinCallApril16th.m4a" download>
-          ↓ Download Audio File
-        </a>
+        <audio controls preload="metadata"><source src="audio/call-april-08.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/call-april-08.m4a" download>↓ Download Audio</a>
       </div>
-
       <div class="transcript-toggle" onclick="toggleTranscript(this)">
-        <span class="transcript-toggle-label">
-          📄 &nbsp;Read Transcript
-        </span>
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
         <span class="chevron">▼</span>
       </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Hi Eoin.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Hi Barbara, how are you? Guys, how's everything going — all good health-wise?</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Not too bad, not too bad.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Okay. So some things have come up for me and we have things to talk about. I talked to my management company and I'm going to try to get you guys another house. Things have kind of changed for me — we had this disaster with the fires here and I've lost a lot of work. Venues are closed down. So <span class="highlight">my preference right now is to sell the house. I kind of want to get out of landlording and just basically get whatever I can for the house and move on.</span></div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">But I'm thinking of you guys also. I talked to my old management company — a woman named Rebecca — and she said she has one property on the books in Wilton. She said it's €1,850, which is expensive but not as expensive as a lot of places. It's a terraced house like mine but it's only two bedrooms. If you guys are interested she's going to give you a fair shot. And they're going to get the listing of my house when I sell it — so it's in their interest. I'm not going to sell it until you guys have a place to go.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">And if this works out I'm willing to supplement the rent — remember I said I'd bring your rent down to €1,500 for the first four months? I'd still do that: €350 times four months, I'd give you guys that money as a start.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">So what kind of time period would that be?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech"><span class="highlight">I'll be in Cork by the beginning of May.</span> Most likely I haven't booked a ticket yet. And maybe there's going to be a couple of nights in May when <span class="highlight">I will take you up on that and say, look, I'm maybe going to stay in the front room or something — I wouldn't go upstairs or use your kitchen or anything like that.</span></div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">It's not only about working from home — it's about the baby as well. I'm 34 weeks right now. The baby can come at any point. Having a newborn baby and having to move and work at the same time is just...</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">If we weren't able to take this house right now, what would be the timeline of events with yourself in the house?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Well, I'm planning to come in May. Preferably I'd like to move back into the house in May.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">We've got the master bedroom and everything else is just offices and living room. If you're coming around we'll have to prepare. Is there anything you'd want us to set up?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Let's not worry about that now, Lewis. I don't want to bother you guys.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Could we get that in writing from you?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Oh yeah, you can get it in writing. Don't worry Lewis — if there's one thing I have it's integrity. I can send you a WhatsApp saying if the Wilton thing works out I'm going to give you guys €350 for the first four months. And I'll give you your deposit back — about €1,100 or €1,250. So €350 per month for at least four months, and then we'll see what happens after that.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">We appreciate all your help. It's always good to have someone in our corner. Every time we go see a house there's 10, 20 people there. You have to email them, you never hear back — not even to say no thank you, they just completely ghost you.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">All right, perfect. I'll text Rebecca now. Thank you guys. Talk to you soon. Bye bye.</div></div>
+      </div></div>
+    </div>
 
-      <div class="transcript-body">
-        <div class="transcript-scroll">
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Heya.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Hey, sorry about that. I was booking through ASAP Tickets and they're good. They can get you cheaper tickets but man, it takes a long time. But anyway, so sorry about that.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Oh, no worries. So, you looking, you had something to say?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Oh, I missed that, say that again?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Sorry, I was just saying, what's up?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Oh, yeah, yeah, I'm actually coming back on Tuesday, so like a week, actually a week from now I'll be there. But what happened was, I got a call, I wanted to update you on everything, from the next door neighbour and apparently they've all moved out. And so my house up in Laurel Ridge is vacant. <span class="highlight">So what I'm going to do is I'm going to come back and I'm going to move in there and I'm going to basically start fixing it up and doing whatever I need to do.</span> And, you know, the issue, like, I think, you know, that was, it sounded like a good solution that maybe we could just transfer to that house. And when I thought about it, I thought it's just risky. Because what if they did say yes when I had to offer it back to them? So what I'm thinking is, let's just stick to our August 15th. And if you find something sooner, fantastic. If you don't, you know, August 15th is fine. And we can talk about the possibility, <span class="highlight">if you guys are still stuck for a place, of doing a lease, like, for a few months where I'll help you for, like, a few months.</span></div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Yeah. When would you have to offer it to them?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Well, it would have to be in August. And I think I know what you're thinking, because this occurred to me too. I thought, well, what if they said no, and then you could go from High Street up there, but I'm going to do a proper lease up there. <span class="highlight">The only way that it's going to work for me without selling it, is basically if I rent it at market value.</span> And I'll be able to do that, because how it works is, <span class="highlight">when you get new windows and you do insulation and all that kind of stuff, you bring the BER up. And when you bring the BER up, it breaks the rent pressure zone. So it means that the RTB says, okay, well, what was your BER before? And then you say it was this, and then you bring it up seven steps. And then that breaks the rent pressure zone.</span></div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Oh, okay, okay, I get you now.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Yeah, because, I mean, we could do that. I'd be okay with doing that, but it would just be the same thing. And then you'd have to make a move, you'd have to move twice, unless you could afford the proper rent, which I understand that you can't, and I agree. It's just, you know, it's just for me, you know, I've said it numerous times, like, if I have to borrow money to get new windows and I have to do all those upgrades, you know, I'm going to be in more debt, and it's going to take me a while to pay all that off. So I have to rent it for the proper price, because, you know, mortgage and taxes, that's just unfortunately the way it is. So what I'm saying to you guys is, look, I don't want you to panic, let's say you search for a place now, and you search for a place, anything that comes up, and if something comes up sooner, like, take it, because as soon as you find the right place, grab it, but, like, let's say we get around to August, like August 1st or something, and you still haven't found a place, then we could do a lease that could give you an extra few months.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Yeah. Okay.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Because, you know, I may not sell that house until the mortgage is paid off, because when I did the numbers and talked to an accountant, you know, they don't care that I owe money on the house, they're just going to take a third in capital gains tax, and the money that I owe the bank will come out of my two-thirds, not their third. So it's actually, selling a house is bad news unless you own it outright. So what I could do for you guys is what we had talked about before, is doing a lease, and then, you know, but like, you know, it means you guys are going to have to move anyway at some point, but it'll buy you a little extra time if you need it. So, yeah, what are your thoughts?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Yeah, I guess we got no choice in that matter. So then, yeah, if you're coming next week, if you're coming around this place at all, or if you just want to come have a look at the house, just let us know because we work different schedules now. She starts early and I finish really late now. And so, just let us know.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech"><span class="highlight">Well, what I'll do is I'll stay with my brother first,</span> and then I might even buy a car because I'm actually, you know, my mother, I can only get insured in her car for a limited time, and I can't take her car the whole time. So if I can get an old used car. <span class="highlight">So I'm essentially kind of moving back to the country for a bit.</span> So, yeah. Like, I'll give you a call and there's no, you know, there's no time. <span class="highlight">Like, I don't need to get in there immediately. I'll just get some stuff out of the attic is all.</span> And we can talk face to face then. And while I'm there, anything that I hear of, of course, like, I'll give you guys any leads.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Yeah. Okay. Cool.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Yeah. But I'm sorry. That other solution seemed perfect. And then I was just like, after I talked to the neighbor and then I gave it some thought and I thought, holy shit, like, that's dodgy as fuck. So I apologize. You know, it was a good idea in the moment. But, yeah. So just wanted to give you an update as they come in. And, but I'm definitely coming next week. <span class="highlight">I'll text you from my brother's place and then we'll work out a time when I can come by just to say hi.</span> And then maybe, you know, I can get the stuff out of the attic and then I'll move it up to the other house and then, you know, we can keep in touch.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Okay. Yeah. No worries.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Yeah. Is everything going with you? Go well with you otherwise?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">It's just struggling to find places. It's just constantly applying for applications, constantly looking at houses, constantly getting turned down.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Oh, Jesus. I'm so sorry about that. That is fucked up. I know. Well, you know what? Let's send you the reference. I did a reference for you guys and I scanned it. But you know what? You know what would be great? If you don't mind first respond to that email about August 15th. So we have that agreement.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Oh, yeah, yeah, yeah.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Yeah. Just, if you guys respond to that and then I'll send you. I'll scan the, I'll print out the thing that I wrote. And then I'll send it to you. But yeah, if you guys don't mind responding to that so that we know we're all on the same page about that August 15th.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Okay, perfect. Okay.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Great. And then I'll send you the reference and you'll have it. And then I'll be, you know, it'll be easier when I'm in Cork that people can just contact me if they have any questions, you know?</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Okay.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">All right. Awesome. So yeah, I'll wait for your email. Then I'll scan that and I'll send it to you.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker lewis">Lewis</div>
-            <div class="speech">Okay, perfect. Thank you so much.</div>
-          </div>
-
-          <div class="dialogue-line">
-            <div class="speaker eoin">Eoin</div>
-            <div class="speech">Thanks. All right, Lewis. Thanks.</div>
-          </div>
-
+    <!-- ── APRIL 11TH ── -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — Phone Call</div>
+          <div class="recording-meta"><span>April 11th</span><span>Eoin · Lewis · Barbara</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-audio">▶ Audio</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
         </div>
       </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Play Recording</div>
+        <audio controls preload="metadata"><source src="audio/call-april-11.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/call-april-11.m4a" download>↓ Download Audio</a>
+      </div>
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">We were switching cell phone services. Mine wasn't working and I had to call with a friend's phone. Sorry about that. Anyway — apologies, it's not going to work out as we originally hoped. I understand you guys can't take on a full lease and that's fine. I understand nobody should pay $2,000 for a house these days. <span class="highlight">You don't have to make any sudden moves because I know something life-changing is happening for you in the next five or six weeks or so.</span></div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">The issue for me — I'll just tell you — is that <span class="highlight">I actually have to go at the end of this month. I'll be in Cork by the beginning of May.</span> Jessica wants to come with me but if I don't have a place to stay for both of us, she's not going to come. <span class="highlight">My preference is to basically come back, move into the house, stay for a period, and then sell the house.</span></div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">I understand you have stuff going on and that can't happen immediately. You're close to the hospital where you're probably going to give birth. I'm not going to try to disturb you guys during that time. I'll see if I can find another place — family, couch for a certain amount of time. My mother lives nearby but she's in a retirement community, just a one-bedroom apartment.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">So I think what we should do is decide on a date by which I'll be able to move in there by myself. <span class="highlight">And maybe there's going to be a couple of nights in May when I will take you up on that and say, look, I'm maybe going to stay in the front room — because if I'm staying far away, there's got to be times when I want to be up the street from my mother. But it would just be like an air mattress in the front room. I wouldn't go upstairs or use your kitchen or anything like that.</span></div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">It's just hard to put a time frame because we don't know when the baby comes — beginning, middle, end of the month. Then there's the postpartum — we don't know if I'll need a natural birth or c-section. So it's really hard to give a time frame. At least until August — the last month for the baby, then another month for the postpartum if that goes well.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">I understand. We can extend it as far as August if you need to. But <span class="highlight">we have to come up with a date, Barbara, because I can't be like "oh, whenever." I'm going to have to find a place to stay. I need to know a date so I can book my flight.</span> The fires — everything north of me for two miles is gone, including places I worked. <span class="highlight">I need to act on this as soon as possible.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Is there a specific reason for May? Because we'd probably have more information near the end of May to give you a better date. Right now it's kind of hard.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">No, I understand. It's May because I need to go see my mother. But if you guys are saying August — let's put something in writing for mid August. And if you need to change it, let me know. What I'll do is email you: <span class="highlight">"Just confirming what we talked about — we agreed that you both will vacate your rooms at 31 High Street Cork on August 15th, 2025. I will keep my room in the house until then but will have the whole house to myself after August 15th. If you choose to move out before then you can do so without any penalty — your full deposit will be refunded less any bills owed. Please respond with confirmation from you both."</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">If we can move out sooner we'll let you know — we'll keep you updated with any information on houses.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">And when you get a chance, send the reference letter as well, if you don't mind please.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Yeah, I'll work on that today and send it to you — a proof first and you can let me know if there are any changes, then I'll put it in a PDF. I'll include my phone number so they can contact me anytime. All right, talk to you soon.</div></div>
+      </div></div>
     </div>
 
-    <!-- Placeholder for additional recordings -->
-    <div style="border: 1px dashed var(--border); border-radius: 4px; padding: 2rem; text-align: center; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;">
-      + Additional recordings can be added here
+    <!-- ── APRIL 13TH ── -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — Phone Call</div>
+          <div class="recording-meta"><span>April 13th</span><span>Eoin · Lewis · Barbara</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-audio">▶ Audio</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
+        </div>
+      </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Play Recording</div>
+        <audio controls preload="metadata"><source src="audio/call-april-13.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/call-april-13.m4a" download>↓ Download Audio</a>
+      </div>
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Hello.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Hi Eoin.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Hi, how are you? Good. So first of all — are you guys still okay for August 15th?</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Uh, yeah.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Okay great. All right, so here's something that came up. I never tell anyone this but <span class="highlight">I actually own two houses in Cork.</span> I basically got into property investment almost 30 years ago. I decided to sell the other house. The people in it have been there a long time, but I heard from their next-door neighbour this morning and he said they're leaving next week. And so <span class="highlight">because if I could move into that house I'm just going to move into that house and then I'm not going to have to bother anyone. I would stay with my brother maybe for the first day or two and then I would just move up there.</span></div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">So here's what I'm thinking — if you guys were interested, you could move into that house. It's a three-bedroom, really nice, back garden, parking space in front. It's in Shanakiel — at the end of Blarney Street. From the city centre maybe a 15-minute walk. A three-bedroom with everything you have in the house you're in now — pretty much the same thing.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">And how much is the rent for that house, Eoin?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">I would do it for you cheap — kind of close to what we have now. If you guys are open to it, it would be a similar situation to what we have now. <span class="highlight">Technically because that's the deal I made with the RTB. What happened was about a year and a half ago Thornton came through my house with the council and gave a big long list of things that needed to be done. I said I don't have the money to do all of those things, and so I said I'm selling the house. And then the tenants had like seven months to leave but they didn't leave because they couldn't find a place, so we just kind of left it alone and did nothing.</span></div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Now I hear they're actually going to leave. But under the rules, if I don't sell the house within the next four months I'm supposed to offer it back to them. They have seven days to respond. I can say 95% — why would they want to move back when they've found a place they're happy with? So what I would propose is <span class="highlight">you guys are planning to buy the house — that's the official reason. You're basically planning to buy this house and in the meantime staying there while you're working out your finances.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">It's a second home registered with the RTB?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">It is, but it won't be. <span class="highlight">Once they move out the registration will be gone — so there'll be no registration with the RTB.</span> If you're comfortable with that, great. <span class="highlight">We could do it as a roommate situation where the bills are in my name but I'm never going to be in the house — it's your house. The deal is going to be that you're planning to buy the house — but that's the official reason I'm letting you into the house, not the real reason.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah, I mean that all kind of sounds okay. We can keep that on the back burner then — if anything else pops up we'll let you know, but in four months if we still haven't found anything we can go ahead with that.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Yeah, I just think — you said you heard from the neighbours but you haven't talked to the people there yet. You should talk to them first to be sure they're actually going to move out. And we need to take a look at the house just for peace of mind. We are on board — we're 100% on board with that.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Great, great. I may actually be there as soon as next week. As soon as I get confirmation I'm going to book my ticket earlier than I thought. And then you guys can just come up, look at it, and we can discuss the whole thing.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Thanks again. We really appreciate all your help and support. Thank you so much.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">No, of course. I'm more than happy if it works out. Thank you guys, bye bye.</div></div>
+      </div></div>
     </div>
 
-  </div>
+    <!-- ── APRIL 16TH ── -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — Phone Call</div>
+          <div class="recording-meta"><span>April 16th</span><span>Eoin · Lewis</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-audio">▶ Audio</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
+        </div>
+      </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Play Recording</div>
+        <audio controls preload="metadata"><source src="audio/call-april-16.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/call-april-16.m4a" download>↓ Download Audio</a>
+      </div>
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Heya.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Hey, sorry about that. I was booking through ASAP Tickets. Anyway, I'm actually coming back on Tuesday — a week from now I'll be there. But what happened was I got a call from the next-door neighbour and apparently they've all moved out. And so my house up in Laurel Ridge is vacant. <span class="highlight">So what I'm going to do is I'm going to come back and I'm going to move in there and I'm going to basically start fixing it up and doing whatever I need to do.</span> And you know, when I thought about it — transferring to that house — I thought it's just risky. Because what if they did say yes when I had to offer it back to them? What if they're connected with people in the neighbourhood? It just could cause problems. So let's just stick to our August 15th. And we can talk about the possibility, <span class="highlight">if you guys are still stuck for a place, of doing a lease for a few months where I'll help you for a few months.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. When would you have to offer it to them?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">It would have to be in August. <span class="highlight">The only way that it's going to work for me without selling it is basically if I rent it at market value.</span> And I'll be able to do that because <span class="highlight">when you get new windows and you do insulation and all that kind of stuff, you bring the BER up. And when you bring the BER up, it breaks the rent pressure zone. So the RTB asks what was your BER before — and you bring it up seven steps. And then that breaks the rent pressure zone.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Oh, okay, okay. I get you now.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">So what I'm saying to you guys is — look, I don't want you to panic. Search for a place now, anything that comes up — if something comes up sooner, take it. But let's say we get around to August 1st and you still haven't found a place — then we could do a lease that could give you an extra few months.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah, I guess we got no choice in that matter. If you're coming next week and coming around this place at all, just let us know — we work different schedules now, she starts early and I finish really late. Just let us know.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech"><span class="highlight">Well, what I'll do is I'll stay with my brother first.</span> I might even buy a car. <span class="highlight">So I'm essentially kind of moving back to the country for a bit.</span> Like, <span class="highlight">I don't need to get in there immediately. I'll just get some stuff out of the attic is all.</span> And we can talk face to face then. While I'm there, anything that I hear of — I'll give you guys any leads.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">It's just struggling to find places. Constantly applying for applications, constantly looking at houses, constantly getting turned down.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Oh, Jesus. I'm so sorry about that. That is fucked up. You know what? Let's send you the reference — I did a reference for you guys and I scanned it. But you know what would be great? If you don't mind, first respond to that email about August 15th so we have that agreement.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Oh, yeah, yeah, yeah.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Yeah, just if you guys respond to that. And then I'll send you the reference. <span class="highlight">I'll text you from my brother's place and then we'll work out a time when I can come by just to say hi.</span> And then I can get the stuff out of the attic and we can keep in touch.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Okay, perfect. Thank you so much.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Thanks. All right, Lewis. Thanks.</div></div>
+      </div></div>
+    </div>
+
+    <!-- ── APRIL 27TH ── -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — Phone Call</div>
+          <div class="recording-meta"><span>April 27th</span><span>Eoin · Lewis</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-audio">▶ Audio</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
+        </div>
+      </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Play Recording</div>
+        <audio controls preload="metadata"><source src="audio/call-april-27.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/call-april-27.m4a" download>↓ Download Audio</a>
+      </div>
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Hello?</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Hey, Eoin.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Okay, great. So anyway, here's the latest. It looks like the person who was in my house — they're never going to want to come back. I talked to another neighbour and they seemed very, very happy in a house in Douglas that's bigger than my house. They've done very well through the council. So if you guys are still interested or think there's a possibility, you're welcome to come up and look at the house.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. That would be something good.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Okay. And I want to apologise for the flip-flopping. I thought it was an option, then thought, well, it's risky — but there's no way in the world they're coming back. <span class="highlight">What I would do is offer it to them early and say, hey, I have to do this by law — if I don't sell the house and they don't respond within seven days, we're good to go.</span> If they respond, they'll respond negatively — there's no question now.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">I understand market value might not be within your budget, so we can work something out. The house is great — I love this house. It's bigger than the one you're in now, I think. The bedrooms are bigger. It's got a nice open floor plan. It's a 1970s house, well built and in good condition, except the bathroom and kitchen are old and need updating. But when I'm finished with it it'll be very nice.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Realistically, I think you said to Rebecca you could go as high as €1,600. I would do a deal with you guys because of the circumstances. Maybe see the house first, then we can talk about what we could work out.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. Okay. That sounds good.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Okay, great. Again, sorry for the back and forth. Oh, about the mail — I'll probably get a lot of stuff this week. So if you don't mind, just text me when it's there. Also, about the rent — <span class="highlight">could I get it from you in cash? When I'm here I need it here — I don't need it in America.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. I just have to think about it because I don't know where we can get that. My bank is Revolut and they don't have a physical location — you can't really just go to an ATM and take out over a grand.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Oh, I see. All right, we'll talk about it. It's no good to me in America — I actually need it here because of the renovations I'm doing. Oh, actually, Louis — sooner is better because in the coming week I'll be taking the bathroom apart. Right now it looks like a house — everything works — but once I start stripping it down it won't look good. It'll look good again in a month or two. So probably better you come before the whole place looks like it's coming apart.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">So would that be an actual tenancy or what we have here?</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">No. It would be like what you have now. I talked to Rebecca — it's perfectly legal to have roommates do what we're doing right now. <span class="highlight">What I see working is if you guys rented rooms from me like you did at High Street, do that for close to two years, then I could restart the rent pressure zone without spending on BER upgrades. I'd do it cheaper for you — so the money I save on not doing the BER you'd also save because I wouldn't charge market value. You'd have a cheaper place and in two years I could restart everything.</span></div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Well, yeah — I think we should first check out the property and then take it from there.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">That's the best thing to do. We'll talk in person and discuss possibilities. Just know I'm going to be taking a sledgehammer to the bathroom sometime this week most likely, so pee before you come.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Okay. Brilliant. Thank you.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">All right. Thanks, Lewis. See you later.</div></div>
+      </div></div>
+    </div>
+
+    <!-- ── MAY 4TH HOUSE VISIT ── -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — House Visit</div>
+          <div class="recording-meta"><span>May 4th</span><span>Eoin · Lewis · Barbara</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-audio">▶ Audio</span>
+          <span class="badge badge-visit">🏠 In-Person</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
+        </div>
+      </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Play Recording</div>
+        <audio controls preload="metadata"><source src="audio/visit-may-04.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/visit-may-04.m4a" download>↓ Download Audio</a>
+      </div>
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Should talk about the plan of action.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Oh, hi. Hi. Good to see you.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Good to see you too. So any day this month, right?</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Any day. Wonderful day.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Wonderful. When you have a chance to check that out, we can make it work. I know you're probably concerned about the expense or whatever.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Nothing at the moment.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Nothing came up. Well, when you get a chance, just come up and see it — it'd be an easy transition. And also for me — I prefer to get in here sooner, but we've set a date and that's fine. I'm not going to change that if the other thing doesn't work for you guys. But the more I think about it, it seems like a good solution.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah, yeah. I'm going to try to get to look at it this week. Just finished the training. Schedule's about to start tomorrow officially — so I'll find out in the morning and can give you a text.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Yeah, sounds great. And I'll have a fellow measure the windows — he lives in Charleville so he'll be here Thursday or Friday. Is there a time on either of those days that might be better for you?</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Always in the afternoon is better because I have doctor's appointments in the morning. At the end of the pregnancy they want to make sure you know. So always in the afternoon — if he comes in the morning, probably won't be anybody at all.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Oh yeah, but I'll come though. I'll meet him down here anyway. He came up into the other house and measured — he was in and out in like seven minutes. So it won't bother you. I'll text you guys and let me know tomorrow what day might work to come up and look, and we'll have a longer time then.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">They've got all the APR cameras now so you have to be careful — they have cameras that automatically scan all the cars in front of them. That's on a lot of the garda cars now.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Oh fuck. Okay. Well, that's from insurance so maybe that's my proof. Okay. Well, good seeing you guys.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">See you too.</div></div>
+      </div></div>
+    </div>
+
+    <!-- ── MAY 8TH HOUSE VISIT (PT1 + PT2) ── -->
+    <div class="recording-card">
+      <div class="recording-header">
+        <div>
+          <div class="recording-title">Eoin — House Visit</div>
+          <div class="recording-meta"><span>May 8th</span><span>Eoin · Lewis · Barbara</span><span style="color:var(--accent3)">2-part recording</span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span class="badge badge-audio">▶ Audio ×2</span>
+          <span class="badge badge-visit">🏠 In-Person</span>
+          <span class="badge badge-transcript">📄 Transcript</span>
+        </div>
+      </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Part 1</div>
+        <audio controls preload="metadata"><source src="audio/visit-may-08-pt1.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/visit-may-08-pt1.m4a" download>↓ Download Part 1</a>
+      </div>
+      <div class="audio-area">
+        <div class="audio-label">▶ Part 2</div>
+        <audio controls preload="metadata"><source src="audio/visit-may-08-pt2.m4a" type="audio/mp4"></audio>
+        <br><a class="download-btn" href="audio/visit-may-08-pt2.m4a" download>↓ Download Part 2</a>
+      </div>
+      <div class="transcript-toggle" onclick="toggleTranscript(this)">
+        <span class="transcript-toggle-label">📄 &nbsp;Read Transcript</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="transcript-body"><div class="transcript-scroll">
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">A lot of people are struggling. What I was saying to Lewis is <span class="highlight">I'm going to bring up the BER in this place. I'm going to insulate the wall from the inside</span> — just like I did in the bathroom and kitchen. And I'm going to do the rest of the house. So it's going to get dusty and messy. I'm going to wait for you every time. If you guys go sooner, I'll get him in sooner. But I'm not going to start any of that until you get out because I understand you guys don't want all that going on as well.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Yeah. We're gonna end up homeless.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">No. But at least you have family — you can stay in Mitchelstown?</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">My mom has one bedroom.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Oh my god. So what is the solution?</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">We don't have many options. We're applying everywhere. And even places — the problem is you have to go look at them. So with the job and her — she doesn't drive, I have to drive. I have to go around and find these things.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Here's an idea — if there's something not far from where I'm staying right now, I'll go look at it for you, and I can vouch for you guys.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">So I guess there's just nothing. In Cork City the other day there was, like, what — five houses?</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">In the whole of Cork County, there's five places.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">In the county? Wow.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">And then those five places — take the ones that are too expensive, the ones without enough rooms — and you just end up with nothing.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">One guy who gave us bad news — he had another one up, and you could see the mould on the windows in the photo. And it was gone already. We offered him more. He said no — it's rent pressure zoned. We said we can give three months upfront. Nothing. We tried everything.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Can't even get on the council list. We earn too much to be on the housing list.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">It's insane. You have to qualify — and in order to qualify for a place, you have to be in a position where you could almost buy a place.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">It's like we're paying more than some people's mortgages. Anytime we kind of make a bit — well, we have to go get a new car now as well. The car's gone to shit. The baby seat doesn't fit it. The engine's failing, it's from 2008. So now any bit of savings we have to put towards that on top of trying to find a house.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">You know, I'm going to send a message to Rebecca now, and ask if we can have a meeting on the phone. I think if you know, she seemed like she was really going to help you, but maybe you're just off the radar again. I'll keep my ear to the ground. And like, even if you guys are living somewhere else, there's hope that something is going to come up that you're going to be able to find the absolute perfect place.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. Well, that's the problem as well — it's good that we both work from home but that just means we can't be near each other. Especially now that I'm with the new company — we can't even be in the same room because of privacy and GDPR.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">Sorry, this guy's taking a lot — he texted me, he's leaving from Charleville. Oh, he's here. Great. Okay. So I'll just let him in if you guys are okay with that.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. No worries. Thank you.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">So we'll keep in touch, and if there's a place that comes up and you can't go see it, I'll go see it for you. I'm basically just working on the house and I have a car. Just text me. But you know what — as I said, you still have more than three months, so something will come up.</div></div>
+        <div class="dialogue-line"><div class="speaker lewis">Lewis</div><div class="speech">Yeah. Yeah. Something will come up.</div></div>
+        <div class="dialogue-line"><div class="speaker eoin">Eoin</div><div class="speech">All right guys. Good to see you. Wish I came with better news, but fingers crossed. Thank you. I'll be in touch if there's anything from Rebecca — that's the first priority before anything happens. Alright.</div></div>
+        <div class="dialogue-line"><div class="speaker barbara">Barbara</div><div class="speech">Thanks guys. Have a good day. Thank you.</div></div>
+      </div></div>
+    </div>
+
+  </div><!-- /section-calls -->
 
   <!-- IMAGES SECTION -->
   <div id="section-images" class="section">
     <div class="page-title">Evidence Images</div>
-
-    <div id="images-grid" class="images-grid">
-      <!-- Images will be listed here once added to the /images folder -->
-    </div>
-
+    <div id="images-grid" class="images-grid"></div>
     <div class="empty-state" id="images-empty">
       <div class="icon">🖼</div>
       <div>No images added yet.</div>
-      <div style="margin-top:0.5rem;font-size:0.7rem;opacity:0.6;">Place image files in the <code>images/</code> folder and update the list in the HTML.</div>
+      <div style="margin-top:.5rem;font-size:.7rem;opacity:.6;">Place image files in the <code>images/</code> folder and update the manifest in the HTML.</div>
     </div>
-
   </div>
 
 </main>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <div class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">✕</div>
   <img id="lightbox-img" src="" alt="">
@@ -650,56 +422,39 @@
     document.getElementById('section-' + name).classList.add('active');
     tabEl.classList.add('active');
   }
-
   function toggleTranscript(toggleEl) {
     const body = toggleEl.nextElementSibling;
     const chevron = toggleEl.querySelector('.chevron');
     body.classList.toggle('open');
     chevron.classList.toggle('open');
   }
-
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('open');
   }
-
   function closeLightbox(e) {
-    if (e.target === document.getElementById('lightbox')) {
+    if (e.target === document.getElementById('lightbox'))
       document.getElementById('lightbox').classList.remove('open');
-    }
   }
-
-  // ── IMAGE MANIFEST ──────────────────────────────────────────────────────
-  // To add images: place files in the images/ folder and add entries below.
+  // ── IMAGE MANIFEST ──────────────────────────────
+  // Add images: place files in images/ folder, add entries below.
   // Format: { src: "images/filename.jpg", label: "Description" }
   const imageManifest = [
-    // Example (uncomment and edit):
-    // { src: "images/example.jpg", label: "Example image" },
+    // { src: "images/example.jpg", label: "Description" },
   ];
-
   function renderImages() {
     const grid = document.getElementById('images-grid');
     const empty = document.getElementById('images-empty');
-    if (imageManifest.length === 0) {
-      empty.style.display = 'block';
-      return;
-    }
+    if (imageManifest.length === 0) { empty.style.display = 'block'; return; }
     empty.style.display = 'none';
     imageManifest.forEach(img => {
       const card = document.createElement('div');
       card.className = 'image-card';
       card.onclick = () => openLightbox(img.src);
-      card.innerHTML = `
-        <img class="image-thumb" src="${img.src}" alt="${img.label}" loading="lazy">
-        <div class="image-card-footer">
-          <span>${img.label}</span>
-          <a href="${img.src}" download onclick="event.stopPropagation()" style="color:var(--accent2);text-decoration:none;font-size:0.75rem;">↓</a>
-        </div>
-      `;
+      card.innerHTML = `<img class="image-thumb" src="${img.src}" alt="${img.label}" loading="lazy"><div class="image-card-footer"><span>${img.label}</span><a href="${img.src}" download onclick="event.stopPropagation()" style="color:var(--accent2);text-decoration:none;">↓</a></div>`;
       grid.appendChild(card);
     });
   }
-
   renderImages();
 </script>
 </body>
